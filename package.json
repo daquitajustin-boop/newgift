@@ -1,0 +1,19 @@
+{
+  "name": "tester",
+  "version": "1.0.0",
+  "description": "Email test server using Node.js and Gmail",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemailer": "^6.9.4",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
