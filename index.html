@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Interactive Gift</title>
+  <style>
+    /* ----------------- BLACKPINK MINIMALIST THEME ----------------- */
+body {
+  font-family: 'Poppins', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: radial-gradient(circle at top, #111 0%, #1a1a1a 100%);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  overflow-x: hidden;
+}
+
+.hidden { display: none; }
+.centered { text-align: center; }
+
+/* Headings */
+h1, h2 {
+  color: #ff69b4;
+  font-weight: 600;
+  margin: 10px 0;
+}
+
+/* Logo */
+img.logo, svg.logo {
+  width: 120px;
+  height: 120px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: transform 0.3s, filter 0.3s;
+}
+img.logo:hover, svg.logo:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 12px #ff69b4);
+}
+
+/* Buttons */
+button {
+  background-color: #ff69b4;
+  border: none;
+  color: #fff;
+  padding: 12px 25px;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: all 0.3s;
+  box-shadow: 0 4px 12px rgba(255,105,180,0.3);
+}
+button:hover {
+  background-color: #ff4c9e;
+  box-shadow: 0 6px 15px rgba(255,105,180,0.5);
+  transform: translateY(-2px);
+}
+
+/* Forms */
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(20,20,20,0.85);
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(255,105,180,0.15);
+  width: 90%;
+  max-width: 350px;
+  margin: 15px auto;
+  backdrop-filter: blur(5px); /* subtle frosted look */
+}
+
+/* Textareas */
+textarea {
+  width: 100%;
+  max-width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 10px;
+  border: none;
+  font-size: 15px;
+  background-color: #222;
+  color: #fff;
+  resize: none;
+  box-shadow: inset 0 0 5px rgba(255,105,180,0.2);
+}
+
+/* Status messages */
+#status, #finalStatus {
+  margin-top: 10px;
+  font-weight: bold;
+  text-align: center;
+}
+#status.success, #finalStatus.success { color: #ff69b4; }
+#status.error, #finalStatus.error { color: #f55; }
+
+/* Final message card */
+#finalMessage {
+  margin-top: 20px;
+  background-color: rgba(20,20,20,0.85);
+  padding: 20px;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 350px;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(255,105,180,0.15);
+  backdrop-filter: blur(5px);
+}
+
+/* Fireworks canvas behind content */
+#fireworksCanvas {
+  z-index: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+/* Bring UI in front of canvas */
+#landing, #readyScreen, #questionsScreen, #finalScreen, form, #finalMessage {
+  position: relative;
+  z-index: 1;
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 480px) {
+  img.logo, svg.logo { width: 100px; height: 100px; }
+  h1 { font-size: 20px; }
+  button { padding: 10px 20px; font-size: 14px; }
+  textarea { font-size: 14px; }
+  form, #finalMessage { padding: 15px; width: 90%; }
+}
+
+  </style>
+</head>
+<body>
+
+<div id="landing" class="centered">
+  <svg class="logo" width="120" height="120" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="10" stroke="#ff69b4" stroke-width="2" fill="none"/>
+    <polygon points="12,2 15,8 9,8" fill="#ff69b4"/>
+  </svg>
+  <h1>Hola. ❤️</h1>
+  <p>¡Haz clic en el logo para comenzar tu sorpresa!</p>
+</div>
+
+<div id="readyScreen" class="centered hidden">
+  <h1>¿Estás listo?</h1>
+  <button id="startBtn">¡Sí!</button>
+</div>
+
+<!-- Questions screen -->
+<div id="questionsScreen" class="hidden centered">
+  <form id="emailForm">
+    <label id="questionLabel" for="answer">Question</label>
+    <textarea id="answer" rows="4" placeholder="Type your answer" required></textarea>
+    <button type="submit" id="nextBtn">Siguiente</button>
+  </form>
+  <div id="status"></div>
+</div>
+
+<!-- Final message screen -->
+<div id="finalScreen" class="hidden centered">
+  <form id="finalForm">
+    <label for="herMessage">Tu mensaje para mí:</label>
+    <textarea id="herMessage" rows="4" placeholder="Type your message here" required></textarea>
+    <button type="submit">Enviar mensaje</button>
+  </form>
+  <div id="finalStatus"></div>
+</div>
+
+<canvas id="fireworksCanvas" class="hidden"></canvas>
+
+<script src="app.js"></script>
+</body>
+</html>
